@@ -15,9 +15,9 @@ function setup() {
 	createCanvas(800, 700);
 	rectMode(CENTER);
 	
-	bottomBox = createSprite(400,600,200,20);
-	rightBox = createSprite(500,600,20,100);
-	leftBox = createSprite(290,600,20,100);
+	bottomBox = Bodies.rectangle(400,600,200,20,{isStatic: true});
+	rightBox = Bodies.rectangle(500,600,20,100, {isStatic: true});
+	leftBox = Bodies.rectangle(290,600,20,100, {isStatic:true});
 
 	packageSprite=createSprite(width/2, 80, 10,10);
 	packageSprite.addImage(packageIMG)
@@ -34,9 +34,11 @@ function setup() {
 	engine = Engine.create();
 	world = engine.world;
 
-	packageBody = Bodies.circle(width/2 , 200 , 5 , {restitution:3, isStatic:true});
+	packageBody = Bodies.circle(width/2 , 200 , 5 , {restitution:0.1, isStatic:true});
 	World.add(world, packageBody);
-	
+	World.add(world, bottomBox);
+	World.add(world,rightBox);
+	World.add(world,leftBox);
 
 	//Create a Ground
 	ground = Bodies.rectangle(width/2, 650, width, 10 , {isStatic:true} );
@@ -55,9 +57,9 @@ function draw() {
   packageSprite.x= packageBody.position.x 
   packageSprite.y= packageBody.position.y 
 
-	bottomBox.collide(packageSprite);
-	rightBox.collide(packageSprite);
-	leftBox.collide(packageSprite);
+	rect(bottomBox.position.x,bottomBox.position.y,200,20);
+    rect(rightBox.position.x,rightBox.position.y,20,100);
+	rect(leftBox.position.x,leftBox.position.y,20,100);
 
 
   keyPressed();
